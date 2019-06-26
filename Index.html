@@ -1,0 +1,153 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>test1</title>
+  <script src="JS/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <style>
+
+   
+  
+  </style>
+</head>
+<body>
+  
+
+    
+<div class="wrapper">
+  <div class="form" id="vm1">
+      <input type="text" v-model="message"><p> Entered Movie name : {{ message }}</p>
+      <input type="text" v-model="url"><p> Entered URL : {{ url }}</p>
+      <img  v-for="url" :src="url" alt="#">
+    </div>
+  <div class="products" id="app-1">
+    
+    <div class="outer">
+      <div class="sec1 , fsec">
+          <ul class="1" id="clk">
+
+          <li v-for="name in movies" class="name">
+          <p>{{ name.name }}</p>
+          </li>
+          </ul>    
+
+
+
+      </div>
+      <div class="sec2 , fsec">
+        
+          <ul class="img , 2">  
+          <li class="img" style="padding: 0; margin: 0;">
+
+
+         <div class="img_container">
+            <img v-for="img in movies" :src="img.img" alt="">
+         </div>
+
+
+          </li>
+          </ul>
+      </div>
+      <div class="sec3 , fsec">
+
+          <ul class="3" id="dis">
+          <li v-for="summary in movies" class="summ invisi" id="summ1"><p>{{ summary.summary }}</p> 
+          </li>
+          </ul>
+        
+      </div>
+      <div class="clr"></div>
+    </div>
+
+    
+    
+  <div class="form">
+    
+  </div>
+      
+      
+      
+    
+  </div>
+</div>
+
+</body>
+<script>
+      
+
+  $(".name").click(function(){
+   $(".3").toggleClass("invisi");
+  });
+
+    let list={};
+    var obj1 = axios.get('https://aca76bf1-86e6-4e14-b1cd-6fda5d603e30.mock.pstmn.io/movieapi')
+              .then(function (response, mData) {
+                // handle success
+               console.log(response);
+                list = response.data;
+                return list;
+               // JSON.parse(this.response);
+
+               // console.log(JSON.parse(this));
+
+                 })
+              .catch(function (error) {
+                  // handle error
+                console.log(error);
+              });
+
+
+
+
+
+var vm1 = new Vue({
+  el: '#vm1',
+  data: {
+    message: 'Enter Movie name here',
+    url: 'Enter URL here'
+  }
+});
+
+var vm = new Vue({
+  
+    el: "#app-1",
+
+
+    data() {
+
+      
+
+
+       // response : '',
+       // list : ''
+      movies= 
+        [{ name: "Harry Potter and the Order of the Phoenix", 
+          img: "https://bit.ly/2IcnSwz", 
+          summary: "Harry Potter and Dumbledore's warning about the return of Lord Voldemort is not heeded by the wizard authorities who, in turn, look to undermine Dumbledore's authority at Hogwarts and discredit Harry." },
+        { name: "The Lord of the Rings: The Fellowship of the Ring", 
+          img: "https://bit.ly/2tC1Lcg", 
+          summary: "A young hobbit, Frodo, who has found the One Ring that belongs to the Dark Lord Sauron, begins his journey with eight companions to Mount Doom, the only place where it can be destroyed." }, 
+        { name: "Avengers: Endgame", 
+          img: "https://bit.ly/2Pzczlb", 
+          summary: "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos -- the evil demigod who decimated the planet and the universe." }]
+
+    },
+
+
+    mounted() {
+
+      axios.get('https://aca76bf1-86e6-4e14-b1cd-6fda5d603e30.mock.pstmn.io/movieapi').then(response => this.response = response.data);
+      // list = movies.data;
+      // axios.get('https://aca76bf1-86e6-4e14-b1cd-6fda5d603e30.mock.pstmn.io/movieapi').then(response => console.log(response.data));
+
+      // var obj = JSON.parse( movies );
+    }
+  
+  })
+
+
+</script>
+</html>
